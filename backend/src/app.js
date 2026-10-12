@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(morgan('dev'));                              // request logging
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+app.use('/api/auth', authRoutes);
 
 // 404 handler for unknown routes
 app.use((req, res) => {
