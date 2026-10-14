@@ -16,6 +16,7 @@ export default function Layout() {
           <nav className="flex gap-2">
             <NavLink to="/dashboard" className={linkClass}>Dashboard</NavLink>
             <NavLink to="/tasks" className={linkClass}>Tasks</NavLink>
+            {user?.role === 'admin' && <NavLink to="/users" className={linkClass}>Users</NavLink>}
           </nav>
           <div className="flex items-center gap-3 text-sm">
             <span className="text-gray-600 hidden sm:inline">{user?.name}</span>
