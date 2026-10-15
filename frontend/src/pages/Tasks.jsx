@@ -71,13 +71,17 @@ export default function Tasks() {
     }
   }
 
-  const selectClass = 'border border-gray-300 rounded-lg px-3 py-2 bg-white';
+  const fieldClass =
+    'bg-surface border border-line text-gray-100 rounded-lg px-3 py-2 transition focus:outline-none focus:ring-2 focus:ring-brand-500';
 
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-2xl font-bold">Tasks</h1>
-        <button onClick={() => setEditing({})} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        <h1 className="text-2xl font-bold text-white">Tasks</h1>
+        <button
+          onClick={() => setEditing({})}
+          className="bg-linear-to-r from-brand-600 to-purple-500 text-white px-5 py-2 rounded-lg shadow-lg shadow-brand-500/20 transition-all duration-200 hover:brightness-110 active:scale-95"
+        >
           + New task
         </button>
       </div>
@@ -87,15 +91,15 @@ export default function Tasks() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by title..."
-          className="border border-gray-300 rounded-lg px-3 py-2 lg:col-span-2"
+          className={`${fieldClass} placeholder-gray-500 lg:col-span-2`}
         />
-        <select value={filters.status} onChange={(e) => setFilter('status', e.target.value)} className={selectClass}>
+        <select value={filters.status} onChange={(e) => setFilter('status', e.target.value)} className={fieldClass}>
           <option value="">All statuses</option>
           <option value="todo">To Do</option>
           <option value="in_progress">In Progress</option>
           <option value="completed">Completed</option>
         </select>
-        <select value={filters.priority} onChange={(e) => setFilter('priority', e.target.value)} className={selectClass}>
+        <select value={filters.priority} onChange={(e) => setFilter('priority', e.target.value)} className={fieldClass}>
           <option value="">All priorities</option>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -107,7 +111,7 @@ export default function Tasks() {
             const [sort, order] = e.target.value.split(':');
             setFilters((f) => ({ ...f, sort, order }));
           }}
-          className={selectClass}
+          className={fieldClass}
         >
           <option value="created:desc">Newest first</option>
           <option value="created:asc">Oldest first</option>
@@ -117,9 +121,11 @@ export default function Tasks() {
       </div>
 
       {loading ? (
-        <div className="py-12 text-center text-gray-500">Loading tasks...</div>
+        <div className="py-12 text-center text-gray-400">Loading tasks...</div>
       ) : tasks.length === 0 ? (
-        <div className="py-12 text-center text-gray-500 bg-white rounded-xl">No tasks found. Create your first one!</div>
+        <div className="py-12 text-center text-gray-400 bg-surface border border-line rounded-xl">
+          No tasks found. Create your first one!
+        </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tasks.map((t) => (

@@ -14,14 +14,14 @@ export default function Users() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="py-12 text-center text-gray-500">Loading users...</div>;
+  if (loading) return <div className="py-12 text-center text-gray-400">Loading users...</div>;
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Users (admin)</h1>
-      <div className="bg-white rounded-xl shadow-sm overflow-x-auto">
+      <h1 className="text-2xl font-bold text-white">Users (admin)</h1>
+      <div className="bg-surface border border-line rounded-xl overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <thead className="bg-gray-100 text-gray-600">
+          <thead className="bg-surface-2 text-gray-300">
             <tr>
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Email</th>
@@ -31,11 +31,15 @@ export default function Users() {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr key={u.id} className="border-t border-gray-100">
-                <td className="px-4 py-3">{u.name}</td>
-                <td className="px-4 py-3">{u.email}</td>
-                <td className="px-4 py-3">{u.role}</td>
-                <td className="px-4 py-3">{u.task_count}</td>
+              <tr key={u.id} className="border-t border-line transition hover:bg-surface-2">
+                <td className="px-4 py-3 text-gray-100">{u.name}</td>
+                <td className="px-4 py-3 text-gray-400">{u.email}</td>
+                <td className="px-4 py-3">
+                  <span className={`px-2 py-1 rounded-full text-xs ${u.role === 'admin' ? 'bg-purple-500/20 text-purple-300' : 'bg-gray-500/20 text-gray-300'}`}>
+                    {u.role}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-gray-300">{u.task_count}</td>
               </tr>
             ))}
           </tbody>
