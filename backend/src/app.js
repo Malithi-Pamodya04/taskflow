@@ -8,6 +8,7 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(helmet());                                   // secure HTTP headers
 app.use(cors({ origin: process.env.CLIENT_URL }));   // only our frontend may call the API
